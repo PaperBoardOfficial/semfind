@@ -71,20 +71,55 @@ memory/HISTORY.md:3: [2026-01-17 09:15] FILE_PERMS: Agent couldn't...     (0.689
 | `--no-cache` | Skip cache | false |
 | `--version` | Print version | |
 
-## Use with AI agents
+## For OpenClaw and AI agents
 
-semfind is designed to be called from AI agent tool loops. Example use cases:
+semfind is built as a CLI tool specifically so that AI agents like [OpenClaw](https://github.com/PaperBoardOfficial/openclaw) can install and use it on demand.
 
-- **Memory search** — agents searching their own history/memory files for relevant past context
+### When to use semfind
+
+Use `grep` first — it's instant and has zero overhead. But when grep fails because you don't know the exact wording, install semfind and search by meaning instead.
+
+```bash
+# grep found nothing useful
+grep "deployment issue" memory/*.md  # no results
+
+# semfind understands meaning
+semfind "deployment issue" memory/*.md -k 3
+# memory/HISTORY.md:9: [2026-01-15] Fixed docker build with missing env vars  (0.796)
+```
+
+### Why a CLI tool instead of a built-in agent tool?
+
+A built-in tool would load the embedding model into memory on every agent session — even when semantic search isn't needed. That's ~250MB of RAM wasted on most runs.
+
+As a CLI tool, semfind only loads the model when you actually call it. The process starts, runs the search, and exits — freeing all memory immediately. Agents that never need semantic search pay zero cost.
+
+### Resource usage
+
+| | First run | Cached runs |
+|---|---|---|
+| **Model download** | ~65MB download (~10-30s depending on connection) | Skipped (cached in `/tmp/fastembed_cache/`) |
+| **Model disk storage** | ~65MB | Same |
+| **RAM while running** | ~250MB (model + embeddings) | ~250MB |
+| **RAM after exit** | 0 (process ends) | 0 |
+| **Query latency** | ~2s (model load + embed + search) | ~14ms (embed + search) |
+| **Embedding cache** | Written to `~/.cache/semfind/` | Read from cache, auto-invalidates on file change |
+
+### Example agent use cases
+
+- **Memory search** — searching history/memory files for relevant past context
 - **Document retrieval** — finding relevant docs before answering user questions
 - **Log analysis** — searching logs by describing the problem rather than knowing exact error strings
 
 ```bash
-# An agent searching its memory
+# Agent searching its memory
 semfind "user asked about authentication" memory/*.md -k 3
 
 # Searching project docs for context
 semfind "how to configure database" docs/*.md -k 5
+
+# Finding relevant logs without knowing exact error strings
+semfind "something went wrong with file permissions" logs/*.md -k 3
 ```
 
 ## License
