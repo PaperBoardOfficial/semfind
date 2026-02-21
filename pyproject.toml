@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "semfind"
-version = "0.1.0"
+version = "0.1.1"
 description = "Semantic grep for the terminal — search files by meaning, not pattern"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.9"
-authors = [{ name = "puri" }]
+authors = [{ name = "PaperBoardOfficial" }]
 keywords = ["semantic-search", "grep", "embeddings", "cli"]
 classifiers = [
     "Development Status :: 3 - Alpha",
