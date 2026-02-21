@@ -8,7 +8,7 @@ Semantic grep for the terminal. Search files by meaning, not pattern.
 
 Traditional grep fails when you don't know the exact wording. If your log says "container build failed due to missing environment variables" but you search for "deployment issue", grep finds nothing. semfind finds it instantly because it understands meaning.
 
-**Built for AI agents.** Tools like [OpenClaw](https://github.com/PaperBoardOfficial/openclaw) and other AI agents need lightweight semantic search over local files — searching memory, history, and context without spinning up a full vector database. semfind is a single CLI command with auto-caching that agents can call directly from the shell.
+**Built for AI agents.** Tools like [OpenClaw](https://github.com/openclaw/openclaw) and other AI agents need lightweight semantic search over local files — searching memory, history, and context without spinning up a full vector database. semfind is a single CLI command with auto-caching that agents can call directly from the shell.
 
 **Also great for humans.** Search your markdown notes, project logs, documentation, or any text files by what you mean, not what you remember typing.
 
@@ -73,7 +73,7 @@ memory/HISTORY.md:3: [2026-01-17 09:15] FILE_PERMS: Agent couldn't...     (0.689
 
 ## For OpenClaw and AI agents
 
-semfind is built as a CLI tool specifically so that AI agents like [OpenClaw](https://github.com/PaperBoardOfficial/openclaw) can install and use it on demand.
+semfind is built as a CLI tool specifically so that AI agents like [OpenClaw](https://github.com/openclaw/openclaw) can install and use it on demand.
 
 ### When to use semfind
 
