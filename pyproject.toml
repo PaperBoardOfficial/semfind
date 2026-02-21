@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "semfind"
+version = "0.1.0"
+description = "Semantic grep for the terminal — search files by meaning, not pattern"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [{ name = "puri" }]
+keywords = ["semantic-search", "grep", "embeddings", "cli"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Text Processing :: General",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "fastembed>=0.7.0",
+    "faiss-cpu>=1.7.0",
+    "numpy>=1.24.0",
+]
+
+[project.scripts]
+semfind = "semfind.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/PaperBoardOfficial/semfind"
+
+[tool.setuptools.packages.find]
+where = ["src"]
